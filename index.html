@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flores de JOS</title>
+  <style>
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(160deg,#ffe6f2,#fffdf7);
+      color:#333;
+    }
+    header{
+      text-align:center;
+      padding:30px 10px;
+      background:linear-gradient(90deg,#ffb3d1,#ffd6a5);
+      color:#fff;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:1px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2{
+      text-align:center;
+      font-size:26px;
+      margin-top:40px;
+      color:#d45a8e;
+    }
+    .descripcion{
+      text-align:center;
+      max-width:600px;
+      margin:0 auto 30px;
+      color:#666;
+      font-size:17px;
+    }
+    .galeria{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+      padding:0 20px 50px;
+      max-width:1000px;
+      margin:auto;
+    }
+    .foto{
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 20px rgba(0,0,0,0.15);
+      transition:transform 0.2s;
+    }
+    .foto:hover{ transform:scale(1.05) }
+    .foto img{ width:100%; height:240px; object-fit:cover; display:block }
+    footer{
+      text-align:center;
+      padding:20px;
+      background:#fff0f6;
+      color:#777;
+      font-size:14px;
+      border-top:1px solid #f3cfe0;
+    }
+    .upload{
+      text-align:center;
+      margin:20px;
+    }
+    input[type="file"]{
+      background:#fff;
+      padding:10px 14px;
+      border:2px dashed #d45a8e;
+      border-radius:12px;
+      cursor:pointer;
+      color:#d45a8e;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <header>🌸 FLORES DE JOS 🌸</header>
+
+  <section>
+    <h2>Bienvenido</h2>
+    <p class="descripcion">Un pequeño rincón para compartir la belleza de las flores. Flores regaladas con el corazón por el amor de mi alma .</p>
+  </section>
+
+  <section class="upload">
+    <h2>Fotos subidas de mis flores  🌼</h2>
+    <input type="file" id="inputFotos" multiple accept="image/*">
+  </section>
+
+  <section>
+    <h2>Galería</h2>
+    <div class="galeria" id="galeria"></div>
+  </section>
+
+  <footer>© <span id="anio"></span> Flores de JOS · Creado con 💐 y HTML puro</footer>
+
+  <script>
+    // año automático
+    document.getElementById("anio").textContent = new Date().getFullYear();
+
+    // subir y mostrar fotos localmente
+    const input = document.getElementById("inputFotos");
+    const galeria = document.getElementById("galeria");
+
+    input.addEventListener("change", () => {
+      const files = input.files;
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const div = document.createElement("div");
+          div.className = "foto";
+          div.innerHTML = `<img src="${e.target.result}" alt="Flor subida">`;
+          galeria.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      }
+      input.value = "";
+    });
+  </script>
+</body>
+</html>
